@@ -1,0 +1,14 @@
+
+2019-01-11 15:40:38  当前错误URL:https://www.e-shenhua.com/ec/auction/english/englishAuctionDetail.jsp?productId=SH10153122
+Traceback (most recent call last):
+  File "processExcel.py", line 52, in parse
+    skuId = Selector(response).xpath("//*[@id='skuId']/option/@value").extract()[0]
+IndexError: list index out of range
+
+
+2019-01-14 15:45:29  当前错误URL:https://www.e-shenhua.com/ec/auction/english/englishAuctionDetail.jsp?productId=SH10153122
+Traceback (most recent call last):
+  File "processExcel.py", line 52, in parse
+    skuId = Selector(response).xpath("//*[@id='skuId']/option/@value").extract()[0]
+IndexError: list index out of range
+
