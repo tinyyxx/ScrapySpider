@@ -19,7 +19,6 @@ headers = {
     }
 
 class process_excel(object):
-
     excel_path = "D://share//神华日度数据.xlsx"
     am_excel_path = "D://share//神华早上文件//"+time.strftime("%Y-%m-%d")+"神华油化品竞拍上午11点.xlsx"
     #pm_excel_path = "D://work//code//article//"+time.strftime("%Y-%m-%d")+"神华油化品竞拍下午.xlsx"
@@ -107,7 +106,7 @@ class process_excel(object):
 
         return {
             "warehouse":column.name,                            # 返回仓库名
-            "auction_price": auction_price,                      # 上午竞拍单价
+            "auction_price": auction_price,                     # 上午竞拍单价
             "auction_qty":auction_qty,                          # 上午竞拍总量
             "maxBidUnitPrice": maxBidUnitPrice,                 # 上午最高报价
             "minBidUnitPrice": minBidUnitPrice,                 # 上午最低报价
@@ -117,15 +116,10 @@ class process_excel(object):
             "today_afternoon_qty":today_afternoon_qty,          # 下午总的成交量
             "afternoon_price":afternoon_price                   # 下午的均价
             }
-#try:
-# except:
-#     f = open("D://work//exception_log.txt", 'a')
-#     traceback.print_exc(file=f)
-#     f.flush()
-#     f.close()
-#第一步：取出详细版，获取每一个url，爬取名称和仓库名,查看今日有无成交额，无成交额则直接略过
+
+#第一步: 获取每一个url，爬取名称和仓库名,查看今日有无成交额，无成交额则直接略过
 #第二步：到上午的excel中查找是否有该项目的竞价交易
-#第三步：如果有,爬取六个数据
+#第三步：如果有,爬取六个数据               
 import os
 
 def get_file_list():
@@ -140,6 +134,7 @@ def get_file_list():
         dir_list = sorted(dir_list,  key=lambda x: os.path.getctime(os.path.join(file_path, x)), reverse=True)
         # print(dir_list)
         return dir_list
+
 
 if __name__ == '__main__':
     process_excel = process_excel()
@@ -163,7 +158,7 @@ if __name__ == '__main__':
         df_auction_qty = pd.DataFrame(index=[time.strftime("%Y-%m-%d")])
         for col in df.columns.values.tolist():      # 获取这一页sheet中的每一列
             column = df[col]
-            parsed_data = process_excel.parse(column)  # 将每一列作为参数传递，对于每一列，获取所需的六个数据和计算的两个量
+            parsed_data = process_excel.parse(column)  # 将Excel每一个sheet的每一列作为参数传递，对于每一列，获取所需的六个数据和计算的两个量
             df_auction_price[parsed_data["warehouse"]] = [parsed_data["auction_price"]]
             df_maxBidUnitPrice[parsed_data["warehouse"]] = [parsed_data["maxBidUnitPrice"]]
             df_minBidUnitPrice[parsed_data["warehouse"]] = [parsed_data["minBidUnitPrice"]]
@@ -187,14 +182,14 @@ if __name__ == '__main__':
             read_df_auction_qty = pd.read_excel(yesterday_result_path,sheet_name=sheetname+'(竞价总量)')
         except:
             read_df_auction_price = pd.DataFrame()
-            read_df_maxBidUnitPrice= pd.DataFrame()
-            read_df_minBidUnitPrice= pd.DataFrame()
-            read_df_total_morning_qty= pd.DataFrame()
-            read_df_today_average_price= pd.DataFrame()
-            read_df_today_total_qty= pd.DataFrame()
-            read_df_today_afternoon_qty= pd.DataFrame()
-            read_df_afternoon_price= pd.DataFrame()
-            read_df_auction_qty= pd.DataFrame()
+            read_df_maxBidUnitPrice = pd.DataFrame()
+            read_df_minBidUnitPrice = pd.DataFrame()
+            read_df_total_morning_qty = pd.DataFrame()
+            read_df_today_average_price = pd.DataFrame()
+            read_df_today_total_qty = pd.DataFrame()
+            read_df_today_afternoon_qty = pd.DataFrame()
+            read_df_afternoon_price = pd.DataFrame()
+            read_df_auction_qty = pd.DataFrame()
 
         # 整合后将新的df写入excel
         pd.concat([read_df_auction_price, df_auction_price], sort=False).to_excel(writer, sheet_name=sheetname+'(起拍价)')
