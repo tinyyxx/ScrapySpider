@@ -113,13 +113,15 @@ class auctionPipeline(object):
         if time.localtime(time.time()).tm_hour == 11 and time.localtime(time.time()).tm_min>=50:
             name = time.strftime("%Y-%m-%d") + '神华油化品竞拍上午' + str(time.localtime(time.time()).tm_hour) + '点50分.xlsx'
             wb.save(r"D://share//神华早上文件//" + name)
-        elif time.localtime(time.time()).tm_hour <= 11:
+
+        elif time.localtime(time.time()).tm_hour == 10 and time.localtime(time.time()).tm_min<50:
             name = time.strftime("%Y-%m-%d") + '神华油化品竞拍上午' + str(time.localtime(time.time()).tm_hour) + '点.xlsx'
             wb.save(r"D://share//神华早上文件//" + name)
-            # 运行完成发送邮件
-            # result_path = "D://share//神华早上文件//" + name
-            # result_name = name
-            # sendEmail.mail(result_path, result_name)
+
+        elif time.localtime(time.time()).tm_hour == 10 and time.localtime(time.time()).tm_min >= 50:
+            name = time.strftime("%Y-%m-%d") + '神华油化品竞拍上午11点.xlsx'
+            wb.save(r"D://share//神华早上文件//" + name)
+
         elif time.localtime(time.time()).tm_hour >= 12:
             name = time.strftime("%Y-%m-%d")+'神华油化品竞拍下午'+str(time.localtime(time.time()).tm_hour)+'点45分.xlsx'
             wb.save(r"D://share//神华早上文件//"+name)

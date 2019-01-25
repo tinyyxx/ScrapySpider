@@ -119,7 +119,7 @@ class process_excel(object):
 
 #第一步: 获取每一个url，爬取名称和仓库名,查看今日有无成交额，无成交额则直接略过
 #第二步：到上午的excel中查找是否有该项目的竞价交易
-#第三步：如果有,爬取六个数据               
+#第三步：如果有,爬取六个数据
 import os
 
 def get_file_list():

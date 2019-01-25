@@ -63,8 +63,8 @@ class AuctionspiderSpider(scrapy.Spider):
         item_loader.add_xpath("warehouse", "//div[@id='content-transaction-info']/table/tbody/tr[3]/td[2]/text()")
         unit = response.xpath("//div[@id='content-products-info']/table/tbody/tr[1]/td[3]/span/text()").extract()[0]
         if unit == '吨':
-            item_loader.add_value("quantity",[quantity])
-            item_loader.add_value("price",response.meta.get("price",""))
+            item_loader.add_value("quantity", [quantity])
+            item_loader.add_value("price", response.meta.get("price", ""))
             maxBidUnitPrice = response.xpath("//*[@id='maxBidUnitPrice']/span/text()")
             minBidUnitPrice = response.xpath("//*[@id='minBidUnitPrice']/span/text()")
             if len(minBidUnitPrice)==0 and len(maxBidUnitPrice)!= 0 and float(maxBidUnitPrice.extract()[0].replace(',',''))!=0:
