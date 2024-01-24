@@ -1,3 +1,1 @@
-function generateLabel($) {
-  alert('heooooo')
-}
+alert("1231241231")
